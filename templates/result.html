@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Analysis Result</title>
+    <style>
+        header {
+            background-color: black;
+            color: white;
+            height: 100px;
+            margin: 0px 0px 80px;
+        }
+        ul{
+            width: 100%;
+            display: inline-block;
+            text-align: center;
+            padding: 0;
+            list-style: none;
+            background-color: #090202;
+            border-bottom: 1px solid #170d0d;
+            border-top: 1px solid #100808; 
+            margin-left: 0px; 
+        }
+        ul li{
+            display: inline-block;
+            text-align:center; 
+            font-size: 50px;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #60a5fa;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* align-items: center; */
+            height: 100vh;
+            margin: 0;
+        }
+        .container{
+            background-color: aqua;
+            height: 50vh;
+            width: 50vw;
+            margin: auto;
+            padding:  34px;
+        
+        }
+        h1 {
+            color: #fff;
+            font-size: 2em;
+            margin: 5;
+            padding: 10px;
+            background-color: #1e3a8a;
+            border-radius: 10px;
+        }
+
+        .box{
+            height: 50px;
+            font-size: 25px;
+            position: relative;
+            top: 10px;
+            
+            
+        }
+        .box2{
+            height: 50px;
+            font-size: 25px;
+            position: relative;
+            top: 50px;
+        }
+        strong {
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>Emotion Sense</li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Audio Analysis Result</h1>
+        <div class="box"><strong>Transcribed Text:</strong> {{ text }}</div>
+        <!-- Uncomment the following lines if needed -->
+        <!-- <p><strong>Polarity:</strong> {{ polarity }}</p>
+        <p><strong>Subjectivity:</strong> {{ subjectivity }}</p> -->
+        <div class="box2"><strong>Sentiment:</strong> {{ sentiment }}</div>
+    </div>
+</body>
+</html>
