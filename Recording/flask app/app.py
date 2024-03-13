@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 from flask import Flask, render_template, request
-import SpeechRecognition as sr
+import speech_recognition as sr
 from textblob import TextBlob
 
 app = Flask(__name__)
