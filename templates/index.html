@@ -64,6 +64,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Audio Upload</title>
     <style>
@@ -73,13 +74,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Viewport height */
+            height: 100vh;
+            /* Viewport height */
             margin: 0;
+        }
+        section{
+            display: flex;
+            flex-direction: column;
         }
         label {
             display: block;
             margin-bottom: 8px;
         }
+
         input {
             width: 100%;
             padding: 8px;
@@ -88,12 +95,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        h1 {
-            padding-top: 50px;
-            padding-right: 30px;
-            padding-bottom: 50px;
-            padding-left: 80px;
-          }
+
         form {
             background-color: rgb(147 197 253);
             padding: 20px;
@@ -101,6 +103,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
+
         button {
             background-color: #4caf50;
             color: white;
@@ -109,22 +112,24 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        
     </style>
 </head>
+
 <body>
-    <h1>Audio Upload</h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <label for="audioFile">Upload Audio File:</label>
-        <input type="file" name="audioFile" accept=".wav, .mp3, .m4a, .mp4"><br><br>
-                <input type="submit" value="Upload" style="margin-left: 0%;"><br><br>
-        <label>Record Audio:</label>
-        <button id="startBtn">Start</button>
-        <button id="stopBtn">Stop</button>
-        <input type="hidden" name="audioData" id="audioData" value="">
-        <br><br>
-        <input type="submit" value="Upload">
-    </form>
+    <section>
+        <h1>Audio Upload</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="audioFile">Upload Audio File:</label>
+            <input type="file" name="audioFile" accept=".wav, .mp3, .m4a, .mp4" title="file" placeholder="Enter your File"><br><br>
+            <input type="submit" value="Upload" style="margin-left: 0%;"><br><br>
+            <label>Record Audio:</label>
+            <button id="startBtn">Start</button>
+            <button id="stopBtn">Stop</button>
+            <input type="hidden" name="audioData" id="audioData" value="">
+            <br><br>
+            <input type="submit" value="Upload">
+        </form>
+    </section>
 
     <script>
         let startButton = document.getElementById('startBtn');
@@ -142,10 +147,10 @@
 
         function startRecording() {
             navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(function(stream) {
+                .then(function (stream) {
                     mediaRecorder = new MediaRecorder(stream);
 
-                    mediaRecorder.addEventListener('dataavailable', function(event) {
+                    mediaRecorder.addEventListener('dataavailable', function (event) {
                         recordedChunks.push(event.data);
                     });
 
@@ -153,7 +158,7 @@
 
                     console.log('Recording started');
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error('Error accessing microphone:', error);
                 });
         }
@@ -162,7 +167,7 @@
             if (mediaRecorder && mediaRecorder.state !== 'inactive') {
                 mediaRecorder.stop();
 
-                mediaRecorder.addEventListener('stop', function() {
+                mediaRecorder.addEventListener('stop', function () {
                     let audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
                     let audioUrl = URL.createObjectURL(audioBlob);
                     document.getElementById('audioData').value = audioUrl;
@@ -173,4 +178,5 @@
         }
     </script>
 </body>
+
 </html>
