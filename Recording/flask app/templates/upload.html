@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Upload</title>
+    <style>
+        /* *{
+            padding: 0;
+            margin: 0;
+        } */
+        header {
+            background-color: black;
+            color: white;
+            height: 100px;
+            margin: 0px 0px 80px;
+        }
+        ul{
+            width: 100%;
+            display: inline-block;
+            text-align: center;
+            padding: 0;
+            list-style: none;
+            background-color: #090202;
+            border-bottom: 1px solid #170d0d;
+            border-top: 1px solid #100808; 
+            margin-left: 0px; 
+        }
+        ul li{
+            display: inline-block;
+            text-align:center; 
+            font-size: 50px;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #60a5fa;
+            /* display: flex; */
+            /* justify-content: center; */
+            /* align-items: center; */
+            height: 100vh; /* Viewport height */
+            margin: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        h1 {
+            /* padding-top: 50px;
+            padding-right: 30px;
+            padding-bottom: 50px;
+            padding-left: 80px; */
+            align-items: center;
+            background-color: antiquewhite;
+            border-radius: 80px;
+            width: 330px;
+            position: relative;
+            right: -195px;
+        
+          }
+        
+        .container{
+            height: 50vh;
+            width: 50vw;
+            margin: auto;
+            padding:  34px;
+        }
+        form {
+            background-color:  rgb(72, 55, 223);
+            padding: 20px;
+            border-radius: 80px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            position: absolute;
+            right: 450px;
+            /* align-items: center; */
+        }
+        #Upload {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #Upload:hover{
+            background-color: white;
+            color: black;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>Emotion Sense</li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Audio Upload</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="audioFile">Upload Audio File:</label>
+            <input type="file" name="audioFile" accept=".wav, .mp3, .m4a, .mp4"><br><br>
+                <input id= Upload type="submit" value="Upload" style="margin-left: 0%;"><br><br>
+            
+            </form>
+    </div>
+    <script>
+        let startButton = document.getElementById('startBtn');
+        let stopButton = document.getElementById('stopBtn');
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        startButton.addEventListener('click', () => {
+            startRecording();
+        });
+
+        stopButton.addEventListener('click', () => {
+            stopRecording();
+        });
+
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function(stream) {
+                    mediaRecorder = new MediaRecorder(stream);
+
+                    mediaRecorder.addEventListener('dataavailable', function(event) {
+                        recordedChunks.push(event.data);
+                    });
+
+                    mediaRecorder.start();
+
+                    console.log('Recording started');
+                })
+                .catch(function(error) {
+                    console.error('Error accessing microphone:', error);
+                });
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+
+                mediaRecorder.addEventListener('stop', function() {
+                    let audioBlob = new Blob(recordedChunks, { type: 'audio/webm' });
+                    let audioUrl = URL.createObjectURL(audioBlob);
+                    document.getElementById('audioData').value = audioUrl;
+                });
+
+                console.log('Recording stopped');
+            }
+        }
+    </script>
+</body>
+</html>

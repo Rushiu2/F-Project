@@ -1,0 +1,99 @@
+mic is not working in this project i want mic to be work along with the choose file and upload file button 
+
+
+
+
+
+from flask import Flask, request, render_template, redirect , url_for
+import os
+from datetime import datetime
+from pydub import AudioSegment
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    # return app.send_static_file('index.html')
+    return render_template('index.html')
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    audio = request.files['audioFile']
+    if audio:
+        # Save the file to a new folder
+        folder = 'uploads'
+        os.makedirs(folder, exist_ok=True)
+
+        # Rename the file using the current date and time
+        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        filename = f'{timestamp}_{audio.filename}'
+
+        # Save the original file temporarily
+        temp_path = os.path.join(folder, 'temp' + audio.filename)
+        audio.save(temp_path)
+
+        # Convert audio to MP3 format
+        converted_path = os.path.join(folder, filename)
+        AudioSegment.from_file(temp_path).export(converted_path, format='mp3')
+
+        # Delete the temporary file
+        os.remove(temp_path)
+
+        return 'File uploaded and converted to MP3 successfully.'
+    else:
+        return 'No file selected.'
+
+if __name__ == '__main__':
+    app.run()
+
+
+
+
+
+
+
+
+
+
+# from flask import Flask, render_template, request
+# import os
+# import base64
+# from textblob import TextBlob
+
+# app = Flask(__name__)
+
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
+
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     audio = request.files.get('audioFile')
+#     recorded_audio = request.form.get('recordedAudio')
+
+#     if audio:
+#         # File uploaded using file input
+#         filename = audio.filename
+
+#         folder = 'uploads'
+#         os.makedirs(folder, exist_ok=True)
+#         audio.save(os.path.join(folder, filename))
+
+#         sentiment = analyze_sentiment(os.path.join(folder, filename))
+#         return f'File uploaded successfully. Sentiment: {sentiment}'
+#     elif recorded_audio:
+#         # File recorded using microphone
+#         filename = 'recorded_audio.wav'
+
+#         folder = 'uploads'
+#         os.makedirs(folder, exist_ok=True)
+
+#         # Decode and save the recorded audio
+#         audio_data = base64.b64decode(recorded_audio.split(',')[1])
+#         with open(os.path.join(folder, filename), 'wb') as file:
+#             file.write(audio_data)
+
+#         sentiment = analyze_sentiment(os.path.join(folder, filename))
+#         return f'File uploaded successfully. Sentiment: {sentiment}'
+#     else:
+#         return 'No file selected.'

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Analysis Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #60a5fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2em;
+            margin: 0;
+            padding: 20px;
+            background-color: #1e3a8a;
+            border-radius: 10px;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        strong {
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Audio Analysis Result</h1>
+        <p><strong>Transcribed Text:</strong> {{ text }}</p>
+        <!-- Uncomment the following lines if needed -->
+        <!-- <p><strong>Polarity:</strong> {{ polarity }}</p>
+        <p><strong>Subjectivity:</strong> {{ subjectivity }}</p> -->
+        <p><strong>Sentiment:</strong> {{ sentiment }}</p>
+    </div>
+</body>
+</html>
