@@ -4,7 +4,10 @@ Speech Emotion Recognition The objective of this notebook is to classify from ra
 
 Gathering data Quick EDA Preprocess Extract features Build a LSTM Evaluate and conclude Datasets:
 
-Crowd-sourced Emotional Multimodal Actors Dataset (Crema-D) Ryerson Audio-Visual Database of Emotional Speech and Song (Ravdess) Surrey Audio-Visual Expressed Emotion (Savee) Toronto Emotional Speech Set (Tessa)
+Crowd-sourced Emotional Multimodal Actors Dataset (Crema-D) 
+Ryerson Audio-Visual Database of Emotional Speech and Song (Ravdess) 
+Surrey Audio-Visual Expressed Emotion (Savee) 
+Toronto Emotional Speech Set (Tessa)
 
 Gathering data We will gather speech data from four datasets and store it in a single dataframe along with the corresponding file paths, gender labels and emotion labels. The size of each respective dataframe will be specified, along with an example filename in which the emotion label is bolded.
 A. Ravdess Dataframe
